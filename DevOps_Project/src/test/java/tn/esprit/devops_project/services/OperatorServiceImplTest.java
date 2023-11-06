@@ -144,10 +144,9 @@ class OperatorServiceImplTest {
     @Test
     void deleteOperator() {
         Operator operator = new Operator();
-        operator.setIdOperateur(11L);
-        operator.setFname("MARYEEM");
-        operator.setLname("BNM");
-        operator.setPassword("nnn");
+        operator.setFname("SONIAA");
+        operator.setLname("BA");
+        operator.setPassword("BABA");
         operatorServiceImpl.addOperator(operator);
 
         Operator existingOperator = operatorRepository.findById(operator.getIdOperateur()).orElse(null);
@@ -156,7 +155,7 @@ class OperatorServiceImplTest {
         operatorServiceImpl.deleteOperator(operator.getIdOperateur());
 
         Operator operatorResult = operatorRepository.findById(operator.getIdOperateur()).orElse(null);
-        assertNull(operatorResult, "L'opérateur avec id 3 est supprimé de la bd");
+        assertNull(operatorResult, "L'opérateur avec cette id est supprimé de la bd");
     }
     @Test
     void deleteOperator2() {
@@ -180,27 +179,29 @@ class OperatorServiceImplTest {
 
 
     @Test
-    void updateOperator() {
+    void addAndUpdateOperator() {
         Operator operator = new Operator();
-        operator.setIdOperateur(3L);
-        operator.setFname("MARYEEM");
-        operator.setLname("BNM");
-        operator.setPassword("LLLMMMCCC");
+        operator.setFname("MARYEMSAEE");
+        operator.setLname("SAE");
+
         operatorServiceImpl.addOperator(operator);
-        Operator op = operatorRepository.findById(operator.getIdOperateur()).orElse(null);
-        assertNotNull(operator, "L'opérateur avec id 2 doit exister dans la base de données avant la mise à jour");
 
-        op.setFname("MARYEMSAEE");
-        op.setLname("SAE");
 
-        operatorServiceImpl.updateOperator(op);
+        assertNotNull(operator.getIdOperateur(), "L'opérateur avec id doit exister dans la base de données après l'ajout");
 
-        Operator updatedOperator = operatorRepository.findById(op.getIdOperateur()).orElse(null);
-        assertNotNull(updatedOperator, "L'opérateur avec id 2 doit toujours exister dans la base de données après la mise à jour");
+        operator.setFname("Maleek");
+        operator.setLname("CHI");
 
-        assertEquals("MARYEMSAEE", updatedOperator.getFname(), "Fname de l'opérateur est mis à jour");
-        assertEquals("SAE", updatedOperator.getLname(), "Lname de famille de l'opérateur doit être mis à jour");
+        operatorServiceImpl.updateOperator(operator);
+
+        Operator updatedOperator = operatorRepository.findById(operator.getIdOperateur()).orElse(null);
+
+        assertNotNull(updatedOperator, "L'opérateur avec id doit toujours exister dans la base de données après la mise à jour");
+
+        assertEquals("Maleek", updatedOperator.getFname(), "Fname de l'opérateur est mis à jour");
+        assertEquals("CHI", updatedOperator.getLname(), "Lname de famille de l'opérateur doit être mis à jour");
     }
+
 
 
     @Test
@@ -227,20 +228,22 @@ class OperatorServiceImplTest {
 
     @Test
     void retrieveOperator() {
-
         Operator operator = new Operator();
-        operator.setIdOperateur(10L);
         operator.setFname("MARYEM");
         operator.setLname("BM");
         operator.setPassword("ABCDE");
         operatorServiceImpl.addOperator(operator);
-        Operator retrievedOperator = operatorRepository.findById(operator.getIdOperateur()).orElse(null);
-        assertNotNull(retrievedOperator);
 
-        assertEquals("MARYEM", retrievedOperator.getFname());
-        assertEquals("BM", retrievedOperator.getLname());
-        assertNotNull(retrievedOperator.getPassword());
+        Long operatorId = operator.getIdOperateur();
+
+        Operator operatorResult = operatorServiceImpl.retrieveOperator(operatorId);
+
+        assertNotNull(operatorResult, "L'opérateur doit être trouvé dans la base de données");
+        assertEquals("MARYEM", operatorResult.getFname(), "Fname de l'opérateur est incorrect");
+        assertEquals("BM", operatorResult.getLname(), "Lname de l'opérateur est incorrect");
+        assertEquals("ABCDE", operatorResult.getPassword(), "Password de l'opérateur est incorrect");
     }
+
 
     @Test
     void retrieveOperator2() {
