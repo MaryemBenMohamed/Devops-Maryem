@@ -1,6 +1,6 @@
 version: "24.0.6"
 services:
-  AppBack:
+  appback:
     image: devops_project
     build:
       context: .
@@ -10,11 +10,13 @@ services:
     depends_on:
       - postgres
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5434/devopsTestDB
-      - SPRING_PROFILES_ACTIVE=test
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5434/devopsDB
+      - SPRING_PROFILES_ACTIVE=prod
 
   postgres:
     image: postgres:latest
+    networks:
+      - mynetwork
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
@@ -25,7 +27,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
 networks:
-  backend:
+  mynetwork:
     driver: bridge
 
 volumes:
