@@ -179,7 +179,7 @@ class OperatorServiceImplTest {
 
 
     @Test
-    void addAndUpdateOperator() {
+    void updateOperator() {
         Operator operator = new Operator();
         operator.setFname("MARYEMSAEE");
         operator.setLname("SAE");
