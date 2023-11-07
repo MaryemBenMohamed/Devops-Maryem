@@ -12,6 +12,11 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/devopsDB
       - SPRING_PROFILES_ACTIVE=prod
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://devops_project:8082/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   devops_project_front:
     image: devops_project_front
@@ -22,6 +27,11 @@ services:
     volumes:
       - .:/app
     tty: true
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:4200 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   postgres:
     image: postgres:latest
