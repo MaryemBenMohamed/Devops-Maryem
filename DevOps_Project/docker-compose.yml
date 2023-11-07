@@ -8,7 +8,7 @@ services:
     ports:
       - "8700:8082"
     depends_on:
-      - postgres
+      - postgres_app
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_app:5432/devopsDB
       - SPRING_PROFILES_ACTIVE=prod
