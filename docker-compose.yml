@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  devops_project:
+    image: devops_project
+    build:
+      context: ./DevOps_Project
+      dockerfile: Dockerfile
+    ports:
+      - "8700:8082"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/devopsDB
+      - SPRING_PROFILES_ACTIVE=prod
+
+  devops_project_front:
+    image: devops_project_front
+    build:
+      context: ./DevOps_Project_Front
+    ports:
+      - 4200:4200
+    volumes:
+      - .:/app
+    tty: true
+
+  postgres:
+    image: postgres:latest
+    networks:
+      - mynetwork
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: devopsDB
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  postgres-data:
