@@ -1,4 +1,4 @@
-version: "24.0.6"
+version: "24.0.7"
 services:
   appback:
     image: devops_project
