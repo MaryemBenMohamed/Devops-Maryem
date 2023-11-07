@@ -1,4 +1,4 @@
-version: '24.0.7'
+version: '3.8'
 services:
   appback:
     image: devops_project
@@ -10,7 +10,7 @@ services:
     depends_on:
       - postgres
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5434/devopsDB
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/devopsDB
       - SPRING_PROFILES_ACTIVE=prod
 
   postgres:
