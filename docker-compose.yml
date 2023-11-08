@@ -10,9 +10,9 @@ services:
     depends_on:
       - postgres
     tty: true
+    restart: always
     networks:
       - devops_project_mynetwork
-      - pipelineoperator_newnetwork
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/devopsDB
       - SPRING_PROFILES_ACTIVE=prod
@@ -31,7 +31,6 @@ services:
     image: postgres:latest
     networks:
       - devops_project_mynetwork
-      - pipelineoperator_newnetwork
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: root
