@@ -6,7 +6,7 @@ services:
       context: ./DevOps_Project
       dockerfile: Dockerfile
     ports:
-      - "8700:8082"
+      - "8082:8082"
     depends_on:
       - postgres
     environment:
