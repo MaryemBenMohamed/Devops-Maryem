@@ -23,9 +23,14 @@ services:
       context: ./DevOps_Project_Front
     ports:
       - 4200:4200
+    restart: always
+    depends_on:
+      - devops_project
+    networks:
+      - network_angular
     volumes:
       - .:/app
-    tty: true
+    
 
   postgres:
     image: postgres:latest
